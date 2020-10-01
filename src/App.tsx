@@ -1,25 +1,5 @@
 import React, { useReducer, useState } from 'react'
-import { v4 as uuid } from 'uuid'
-
-const initialState = {
-  toDos: [],
-}
-
-const ADD = 'add'
-const DELETE = 'delete'
-
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case ADD:
-      return { toDos: [...state.toDos, { text: action.payload, id: uuid() }] }
-    case DELETE:
-      return {
-        toDos: state.toDos.filter((todo: any) => todo.id !== action.payload),
-      }
-    default:
-      return
-  }
-}
+import reducer, { ADD, COMPLETE, DELETE, initialState } from './reducer'
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -63,8 +43,42 @@ function App() {
                 ❌
               </span>
             </button>
+            <button
+              onClick={() => dispatch({ type: COMPLETE, payload: todo.id })}
+            >
+              <span role="img" aria-label="check">
+                ✔️
+              </span>
+            </button>
           </li>
         ))}
+      </ul>
+
+      <ul>
+        {state.completed.length !== 0 && (
+          <>
+            <h2>Completed To Dos</h2>
+            {state?.completed.map((todo: any) => (
+              <li key={todo.id}>
+                <span style={{ marginRight: 10 }}>{todo.text}</span>
+                <button
+                  onClick={() => dispatch({ type: DELETE, payload: todo.id })}
+                >
+                  <span role="img" aria-label="close">
+                    ❌
+                  </span>
+                </button>
+                <button
+                  onClick={() => dispatch({ type: COMPLETE, payload: todo.id })}
+                >
+                  <span role="img" aria-label="not_check">
+                    🙅🏻‍♂️
+                  </span>
+                </button>
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </>
   )
