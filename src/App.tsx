@@ -1,5 +1,11 @@
 import React, { useReducer, useState } from 'react'
-import reducer, { ADD, COMPLETE, DELETE, initialState } from './reducer'
+import reducer, {
+  ADD,
+  COMPLETE,
+  DELETE,
+  initialState,
+  UNCOMPLETE,
+} from './reducer'
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -69,7 +75,9 @@ function App() {
                   </span>
                 </button>
                 <button
-                  onClick={() => dispatch({ type: COMPLETE, payload: todo.id })}
+                  onClick={() =>
+                    dispatch({ type: UNCOMPLETE, payload: todo.id })
+                  }
                 >
                   <span role="img" aria-label="not_check">
                     🙅🏻‍♂️
