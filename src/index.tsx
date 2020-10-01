@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import TodoProvider from './context'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <TodoProvider>
     <App />
-  </React.StrictMode>,
+  </TodoProvider>,
   document.getElementById('root')
 )
 
